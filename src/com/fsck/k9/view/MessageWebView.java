@@ -3,11 +3,13 @@ package com.fsck.k9.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Picture;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Toast;
 import com.fsck.k9.K9;
 import com.fsck.k9.R;
@@ -150,8 +152,8 @@ public class MessageWebView extends TitleBarWebView {
         }
     }
 
-    public void setText(String text, String contentType) {
-        String content = text;
+    public void setText(String content, String contentType) {
+        enablePictureListener();
         if (K9.getK9MessageViewTheme() == K9.Theme.DARK)  {
             // It's a little wrong to just throw in the <style> before the opening <html>
             // but it's less wrong than trying to edit the html stream
@@ -161,6 +163,24 @@ public class MessageWebView extends TitleBarWebView {
                    + content;
         }
         loadDataWithBaseURL("http://", content, contentType, "utf-8", null);
+    }
+
+    /*
+     * Work around WebView annoyance that causes the view to scroll down and hide the
+     * header area, when the content doesn't fit on one screen.
+     * Register a WebView.PictureListener that fires as soon as the WebView has finished
+     * rendering. Simply scroll back up to the top and unregister the listener, so it only
+     * does it the first time.
+     */
+    @SuppressWarnings("deprecation")
+    private void enablePictureListener() {
+        setPictureListener(new PictureListener() {
+            @Override
+            public void onNewPicture(final WebView view, final Picture picture) {
+                setPictureListener(null);
+                scrollTo(0, 0);
+            }
+        });
     }
 
     /*
