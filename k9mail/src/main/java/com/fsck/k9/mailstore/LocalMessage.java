@@ -448,37 +448,48 @@ public class LocalMessage extends MimeMessage {
         db.delete("threads", "message_id = ?", idArg);
     }
 
-    private void loadHeaders() throws MessagingException {
+    private void loadHeaders() {
         mHeadersLoaded = true;
-        getFolder().populateHeaders(this);
+        try {
+            getFolder().populateHeaders(this);
+        } catch (MessagingException e) {
+            // FIXME
+        }
     }
 
     @Override
-    public void setHeader(String name, String value) throws MessagingException {
+    public void setHeader(String name, String value) {
         if (!mHeadersLoaded)
             loadHeaders();
         super.setHeader(name, value);
     }
 
     @Override
-    public String[] getHeader(String name) throws MessagingException {
+    public String[] getHeader(String name) {
         if (!mHeadersLoaded)
             loadHeaders();
         return super.getHeader(name);
     }
 
     @Override
-    public void removeHeader(String name) throws MessagingException {
+    public void removeHeader(String name) {
         if (!mHeadersLoaded)
             loadHeaders();
         super.removeHeader(name);
     }
 
     @Override
-    public Set<String> getHeaderNames() throws MessagingException {
+    public Set<String> getHeaderNames() {
         if (!mHeadersLoaded)
             loadHeaders();
         return super.getHeaderNames();
+    }
+
+    @Override
+    public String getContentType() {
+        if (!mHeadersLoaded)
+            loadHeaders();
+        return super.getContentType();
     }
 
     @Override

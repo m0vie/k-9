@@ -405,7 +405,7 @@ public class MimeMessage extends Message {
     }
 
     @Override
-    public void addHeader(String name, String value) throws MessagingException {
+    public void addHeader(String name, String value) {
         mHeader.addHeader(name, value);
     }
 
@@ -415,22 +415,22 @@ public class MimeMessage extends Message {
     }
 
     @Override
-    public void setHeader(String name, String value) throws MessagingException {
+    public void setHeader(String name, String value) {
         mHeader.setHeader(name, value);
     }
 
     @Override
-    public String[] getHeader(String name) throws MessagingException {
+    public String[] getHeader(String name) {
         return mHeader.getHeader(name);
     }
 
     @Override
-    public void removeHeader(String name) throws MessagingException {
+    public void removeHeader(String name) {
         mHeader.removeHeader(name);
     }
 
     @Override
-    public Set<String> getHeaderNames() throws MessagingException {
+    public Set<String> getHeaderNames() {
         return mHeader.getHeaderNames();
     }
 
