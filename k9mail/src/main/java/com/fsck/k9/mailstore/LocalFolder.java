@@ -1352,8 +1352,9 @@ public class LocalFolder extends Folder<LocalMessage> implements Serializable {
         String encoding = getTransferEncoding(part);
 
         if (!(body instanceof SizeAware)) {
-            throw new IllegalStateException("Body needs to implement SizeAware");
+            throw new IllegalStateException("Body needs to implement SizeAware: " + body.getClass());
         }
+
 
         SizeAware sizeAwareBody = (SizeAware) body;
         long fileSize = sizeAwareBody.getSize();

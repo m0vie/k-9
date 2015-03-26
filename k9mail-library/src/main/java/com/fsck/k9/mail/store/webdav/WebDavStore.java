@@ -1854,7 +1854,7 @@ public class WebDavStore extends RemoteStore {
                 try {
                     ByteArrayOutputStream out;
 
-                    out = new ByteArrayOutputStream(message.getSize());
+                    out = new ByteArrayOutputStream((int)message.getSize());
 
                     open(Folder.OPEN_MODE_RW);
                     EOLConvertingOutputStream msgOut = new EOLConvertingOutputStream(
@@ -1984,8 +1984,12 @@ public class WebDavStore extends RemoteStore {
             return this.mUrl;
         }
 
-        public void setSize(int size) {
+        public void setSize(long size) {
             this.mSize = size;
+        }
+
+        public long getSize() {
+            return mSize;
         }
 
         public void setFlagInternal(Flag flag, boolean set) throws MessagingException {

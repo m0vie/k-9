@@ -1,6 +1,8 @@
 
 package com.fsck.k9.mail.internet;
 
+import android.hardware.Camera;
+
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -35,6 +37,7 @@ import com.fsck.k9.mail.Message;
 import com.fsck.k9.mail.MessagingException;
 import com.fsck.k9.mail.Multipart;
 import com.fsck.k9.mail.Part;
+import com.fsck.k9.mail.filter.CountingOutputStream;
 
 /**
  * An implementation of Message that stores all of it's metadata in RFC 822 and
@@ -56,7 +59,7 @@ public class MimeMessage extends Message {
     private SimpleDateFormat mDateFormat;
 
     private Body mBody;
-    protected int mSize;
+    protected long mSize;
     private String serverExtra;
 
     public MimeMessage() {
@@ -189,7 +192,7 @@ public class MimeMessage extends Message {
     }
 
     @Override
-    public int getSize() {
+    public long getSize() {
         return mSize;
     }
 

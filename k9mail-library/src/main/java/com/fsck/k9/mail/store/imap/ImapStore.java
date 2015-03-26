@@ -2204,8 +2204,12 @@ public class ImapStore extends RemoteStore {
             this.mFolder = folder;
         }
 
-        public void setSize(int size) {
+        public void setSize(long size) {
             this.mSize = size;
+        }
+
+        public long getSize() {
+            return this.mSize;
         }
 
         public void setFlagInternal(Flag flag, boolean set) throws MessagingException {

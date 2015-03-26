@@ -1178,8 +1178,12 @@ public class Pop3Store extends RemoteStore {
             mSize = -1;
         }
 
-        public void setSize(int size) {
+        public void setSize(long size) {
             mSize = size;
+        }
+
+        public long getSize() {
+            return mSize;
         }
 
         @Override

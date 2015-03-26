@@ -11,10 +11,11 @@ import android.util.Log;
 
 import com.fsck.k9.mail.filter.CountingOutputStream;
 import com.fsck.k9.mail.filter.EOLConvertingOutputStream;
+import com.fsck.k9.mail.internet.SizeAware;
 
 import static com.fsck.k9.mail.K9MailLib.LOG_TAG;
 
-public abstract class Message implements Part, CompositeBody {
+public abstract class Message implements Part, CompositeBody, SizeAware {
 
     public enum RecipientType {
         TO, CC, BCC,
@@ -145,7 +146,7 @@ public abstract class Message implements Part, CompositeBody {
     public abstract String getPreview();
     public abstract boolean hasAttachments();
 
-    public abstract int getSize();
+    public abstract long getSize();
 
     public void delete(String trashFolderName) throws MessagingException {}
 
